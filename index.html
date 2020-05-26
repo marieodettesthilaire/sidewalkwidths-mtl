@@ -3,13 +3,13 @@
 <head>
 
 <meta charset="utf-8" />
-<title>Sidewalk Widths NYC</title>
+<title>Trottoirs Montreal</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 
 <meta property="og:title" content="Sidewalk Width NYC" />
 <meta property="og:image" content="https://sidewalkwidths.nyc/assets/sidewalkwidths_nyc.jpg" />
 <meta property="og:url" content="https://www.sidewalkwidths.nyc" />
-<meta property="og:description" content="Sidewalk Widths NYC is an interactive map that allows you to explore New York City's sidewalks relative to how good they are for social distancing." />
+<meta property="og:description" content="Sidewalk Widths Montreal is an interactive map that allows you to explore Montreal's sidewalks relative to how good they are for social distancing." />
 
 <link rel='icon' href='favicon.ico?' type='image/x-icon'/ >
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
@@ -27,29 +27,30 @@
 		<button class="btn circle-btn" title="Legend" onclick="toggleWindow('legendWindow')">
 			<img src="./assets/legend.png"></img>
 		</button>
-
-		<button class="btn circle-btn" title="Charts" onclick="toggleWindow('chartsWindow')">
-			<img src="./assets/charts.png"></img>
-		</button>
-
-		<!-- <button class="btn circle-btn" title="District" onclick="toggleWindow('selectWindow')">
-			<img src="./assets/group.png"></img>
-		</button> -->
 	</div>
 
 	<div id="infoWindow" class="window landing" style="display:block">
 		<img id="landingClose" class="close" src="./assets/close.svg" alt="close" onclick="toggleWindow('infoWindow')" style="display: none;">
 		<div class="content">
-			<h3>Welcome to</h3>
-			<h1>Sidewalk Widths NYC</h1>
-			<p>This map is intended to give an impression of how sidewalk widths impact the ability of pedestrians to practice social distancing. Widths were determined from <a href="https://data.cityofnewyork.us/City-Government/Sidewalk/vfx9-tbb6">New York City's Sidewalk dataset</a> which was not verfied for accuracy or completeness.</p>
-			<p>To learn more about how this dataset was produced, visit the <a href="https://www.github.com/meliharvey/sidewalkwidths-nyc">GitHub page</a>.</p>
-			<p><small>DISCLAIMER<br>
-			Do not use this map to make decisions that impact your health or safety. Other important factors like sidewalk obstructions and pedestrian activity are not accounted for in this dataset.</small></p>
+			<h3>Bienvenue à</h3>
+			<h1>Trottoirs Montréal</h1>
+			<p>Cette carte vise à donner une idée de la façon dont la largeur des trottoirs influe sur la capacité des piétons à pratiquer l'éloignement social. Les largeurs ont été estimées à partir <a href="http://donnees.ville.montreal.qc.ca/dataset/voirie-trottoir-ilot">Données de Trottoir et îlot (Base de données des actifs de voirie) de la Ville de Montréal</a>. L'exactitude ou l'exhaustivité de ces données source n'ont pas été vérifiées. Les données sur les trottoirs ne comprennent pas non plus les sentiers hors rue et les sentiers polyvalents, qui peuvent offrir des itinéraires supplémentaires pour les piétons.</p>
+            
+			<p>Ce site est emprunte du code à <a href="https://www.github.com/meliharvey/sidewalkwidths-nyc"></a> Meli Harvey <a href="http://www.sidewalkwidths.nyc/">Sidewalk Widths NYC project</a>. Il a été adapté au contexte ainsi qu'aux données de trottoirs de Montréal</a>.</p>
+
+	<p>La largeur est estimée en: 
+        <ol>
+  <li>faisant l'approximation que chaque polygone de trottoir est un rectangle;</li>
+  <li>utilisant le périmètre et l'aire de chaque polygone pour en inférer la largeur.</li>
+</ol>
+    On assume que sur chaque trottoir il y a au moins un item ayant une emprise de 1 mètre de largeur: un arbre, une borne fontaine, une poubelle, etc. C'est pour cette raison que nous avons déterminé la largeur minimale pour respecter la règle de distanciation sociale à 3 mètres.</p>		
+
+			<p><small>AVERTISSEMENT<br>
+			N'utilisez pas cette carte pour prendre des décisions qui ont un impact sur votre santé ou votre sécurité. D'autres facteurs importants comme les obstructions de trottoir et l'activité piétonne ne sont pas pris en compte dans cet ensemble de données.</small></p>
 		</div>
 		<div id="enter" class="footer">
 			<div class="close-btn">
-				<button class="btn" onclick="enterMap()">Explore the Map</button>
+				<button class="btn" onclick="enterMap()">Explorez</button>
 			</div>
 		</div>
 	</div>
@@ -57,7 +58,7 @@
 	<div id="legendWindow" class="window menu" style="display: none;">
 		<img class="close" src="./assets/close.svg" alt="close" onclick="toggleWindow('legendWindow')">
 		<div class="header">
-				<h2>Legend</h2>
+				<h2>Légende</h2>
 		</div>
 		<div class="content">
 			<ul id="legend-main" class="legend">
@@ -68,7 +69,7 @@
 	<div id="chartsWindow" class="window menu" style="display: none;">
 		<img class="close" src="./assets/close.svg" alt="close" onclick="toggleWindow('chartsWindow')">
 		<div class="header">
-				<h2>Charts</h2>
+				<h2>Graphiques</h2>
 		</div>
 		<div class="content">
 			<div class="row align-right">
@@ -76,27 +77,14 @@
 			</div>
 			<div id="chartContainer" class="chart"></div>
 			<div class="dropdown">
-			  <button id="chartDropdownButton" onclick="toggleDropdown()" class="btn dropdown-btn">NYC</button>
+			  <button id="chartDropdownButton" onclick="toggleDropdown()" class="btn dropdown-btn">Montréal</button>
 			  <div id="chartDropdown" class="dropdown-content">
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- <div id="selectWindow" class="window menu" style="display: none;">
-		<img class="close" src="./assets/close.svg" alt="close" onclick="toggleWindow('selectWindow')">
-		<div class="header">
-				<h2>Districts</h2>
-		</div>
-		<div class="content">
-			<button id="draw" class="btn" onclick="drawPolygon()">Draw Polygon</button>
-			<button id="delete" class="btn" onclick="drawPolygon()">Delete</button>
-		</div>
-	</div> -->
-
   <div id="map"></div>
-
-
 	<script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 	<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v0.18.0/mapbox-gl-draw.js'></script>
 	<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.css" type="text/css" />

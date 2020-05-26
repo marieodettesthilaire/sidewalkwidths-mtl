@@ -1,12 +1,10 @@
 # Don't track content of these folders
-data/bronx/
-data/brooklyn_queens/
-data/manhattan/
-data/staten_island/
-data/nyc/
-notebooks/boroughs/
+data/
 
 # Don't track these files
 credentials.txt
 notebooks/.ipynb_checkpoints
+.ipynb_checkpoints
+assets/.ipynb_checkpoints
 assets/favicon.ai
+sidewalkwidths_mtl.json

@@ -1,45 +1,52 @@
-var MAPBOX_TOKEN = 'pk.eyJ1IjoiZGNoYXJ2ZXkiLCJhIjoiY2s5N3Zjc3ZxMGYwazNlbm9ubzA1d3Q1dCJ9.szxUl4AKCdUNLlmvham6og'
-var MAPBOX_STYLE = 'mapbox://styles/dcharvey/ck90r78ib0hnp1jnz9bwleg7h'
-var SIDEWALKS_TILESET = 'mapbox://dcharvey.1typxzdb'
-var SIDEWALKS_LAYER = 'sidewalkwidths_nyc-87ugfr'
-var DISTRICTS_TILESET = 'mapbox://dcharvey.7dbzv200'
-var DISTRICTS_LAYER = 'districts_nyc-1eoi4m'
-var UNITS = 'ft' // change to 'm' for meters
+var MAPBOX_TOKEN = 'pk.eyJ1IjoibWFyaWUtb2RldHRlIiwiYSI6ImNrYThvaTQ0bTBpZnIyenVseTN5bzUzZjYifQ.OYae7kSfn4DHI_xJ1nNAbg'
+var MAPBOX_STYLE = 'mapbox://styles/marie-odette/ckachg18u4kt61is2f8nwmyip'
+var SIDEWALKS_TILESET = 'mapbox://marie-odette.51iiymxx'
+var SIDEWALKS_LAYER = 'sidewalkwidths_mtl-7md24x'
+//var MAPBOX_TOKEN = 'pk.eyJ1IjoibWFyaWUtb2RldHRlIiwiYSI6ImNrYThvaTQ0bTBpZnIyenVseTN5bzUzZjYifQ.OYae7kSfn4DHI_xJ1nNAbg'
+//var MAPBOX_STYLE = 'mapbox://styles/marie-odette/ckachg18u4kt61is2f8nwmyip'
+//var SIDEWALKS_TILESET = 'mapbox://marie-odette.9ywq8spu'
+//var SIDEWALKS_LAYER = 'sidewalkwidths_mtl-1gnbyd'
+
+var UNITS = 'm' // change to 'm' for meters
 var PRECISION = 0.1 // the number of decimal places
+var CENTER = [-73.571439, 45.499761]
+var MAX_BOUNDS =[[-73.818156, 45.292746], 
+			[-73.318156, 45.692746]]
+var ZOOM = 14
+var MAX_ZOOM = 22
+var MIN_ZOOM = 13
+
+    
 var GROUPS = [
   {
     "value": 0.0,
-    "rating": "impossible",
+    "rating": "Impossible",
     "color": "#FF0049"
   },
   {
-    "value": 6.0,
-    "rating": "very difficult",
+    "value": 1.0,
+    "rating": "Ce trottoir est trop étroit pour la distanciation sociale.",
     "color": "#FF461E"
   },
   {
-    "value": 9.0,
-    "rating": "difficult",
+    "value": 2.0,
+    "rating": "La distanciation sociale est diffcile sur ce trottroir.",
     "color": "#FF9300"
   },
   {
-    "value": 12.0,
-    "rating": "somewhat difficult",
+    "value": 3.0,
+    "rating": "La distanciation sociale est possible sur ce trottroir.",
     "color": "#e4da27"
   },
   {
-    "value": 15.0,
-    "rating": "somewhat easy",
+    "value": 5.0,
+    "rating": "La distanciation sociale est facile sur ce trottroir",
     "color": "#1ce262"
   },
   {
-    "value": 18.0,
-    "rating": "easy",
-    "color": "#00FFC4"
-  },
-  {
-    "value": 21.0,
-    "rating": "very easy",
+    "value": 7.0,
+    "rating": "La distanciation sociale est très facile sur ce trottroir.",
     "color": "#00D2FF"
   },
+
 ]
